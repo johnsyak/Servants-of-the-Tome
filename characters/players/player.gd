@@ -35,9 +35,6 @@ func breakSouthWall(collision:KinematicCollision2D):
 		var coords = [coord1, coord2, coord3, coord4]
 		emit_signal("break_block", coords)
 
-
-		
-
 func returnSnappedCollisionPoint(collision_point) -> Vector2:	
 	return Vector2(snapped(collision_point.x, 16), snapped(collision_point.y, 16))
 			
