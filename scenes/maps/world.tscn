@@ -148,8 +148,8 @@ top_level = true
 navigation_polygon = SubResource("NavigationPolygon_ge4i1")
 
 [node name="DefaultEnemy" parent="TileMap" node_paths=PackedStringArray("movement_target") instance=ExtResource("2_l4a6s")]
-position = Vector2(47, 50)
-movement_target = NodePath("../NavTarget")
+position = Vector2(175, 204)
+movement_target = NodePath("../../Player")
 
 [node name="NavTarget" type="Marker2D" parent="TileMap"]
 position = Vector2(238, 47)

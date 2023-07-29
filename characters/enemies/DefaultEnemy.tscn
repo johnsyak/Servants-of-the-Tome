@@ -18,3 +18,8 @@ texture = ExtResource("1_jpttn")
 shape = SubResource("RectangleShape2D_uicqf")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="FindTarget" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="FindTarget" to="." method="_on_find_target_timeout"]

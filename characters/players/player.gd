@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var run_speed: float = 1.5
 
 func _handle_input():
-	var move_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var move_direction = Input.get_vector("left", "right", "up", "down")
 	velocity = move_direction*speed
 	if Input.is_action_pressed("run"):
 		velocity = move_direction*speed*run_speed

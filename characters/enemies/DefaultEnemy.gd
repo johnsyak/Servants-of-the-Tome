@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var movement_speed:float = 200.0
+@export var movement_speed:float = 40.0
 
 @export var movement_target: Node2D
 @export var navigation_agent: NavigationAgent2D
@@ -18,8 +18,8 @@ func set_movement_target(target_point: Vector2):
 	navigation_agent.target_position = target_point
 	
 func _physics_process(delta):
-	if navigation_agent.is_navigation_finished():
-		return
+#	if navigation_agent.is_navigation_finished():
+#		return
 	
 	var current_agent_position: Vector2 = global_position
 	var next_path_position: Vector2 = navigation_agent.get_next_path_position()
@@ -29,3 +29,8 @@ func _physics_process(delta):
 	new_velocity = new_velocity * movement_speed
 	velocity = new_velocity
 	move_and_slide()
+
+
+func _on_find_target_timeout():
+	$FindTarget.start(1)
+	set_movement_target(movement_target.position)
