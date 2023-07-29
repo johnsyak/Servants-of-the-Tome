@@ -124,9 +124,9 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_mwge7")
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ge4i1"]
-vertices = PackedVector2Array(289, 128, 320, 62, 320, 192, 289, 159, 288, 64, 255, 159, 255, 223, 224, 192, 224, 160, 226, 129, 97, 223, 128, 193, 97, 157, 128, 81, 447, 222, 384, 223, 385, 192, 417, 192, 446, 129, 417, 158, 384, 129, 353, 158, 352, 62, 383, 63, 351, 193, 352, 223, 289, 224, 446, 33, 447, 94, 418, 94, 417, 62, 225, 33, 256, 64, 256, 128, 33, 223, 33, 33, 63, 33, 64, 114, 63, 223, 65, 157, 191, 130, 160, 159, 160, 80, 189, 34, 97, 34, 96, 113)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(1, 0, 4), PackedInt32Array(5, 6, 7, 8, 9), PackedInt32Array(7, 6, 10, 11), PackedInt32Array(11, 10, 12, 13), PackedInt32Array(14, 15, 16, 17), PackedInt32Array(18, 14, 17, 19), PackedInt32Array(20, 18, 19, 21), PackedInt32Array(20, 21, 22, 23), PackedInt32Array(24, 25, 26, 2), PackedInt32Array(2, 26, 3), PackedInt32Array(27, 28, 29, 30), PackedInt32Array(31, 27, 30, 23, 22), PackedInt32Array(31, 22, 1), PackedInt32Array(31, 1, 4, 32), PackedInt32Array(9, 31, 32, 33, 5), PackedInt32Array(34, 35, 36, 37, 38), PackedInt32Array(39, 38, 37), PackedInt32Array(33, 0, 3, 5), PackedInt32Array(40, 9, 8, 41), PackedInt32Array(40, 41, 42, 43), PackedInt32Array(44, 43, 42, 13), PackedInt32Array(45, 44, 13, 12), PackedInt32Array(45, 12, 39, 37)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(33, 33, 63, 33, 64, 114, 96, 113, 97, 34, 189, 34, 191, 130, 226, 129, 225, 33, 446, 33, 447, 94, 418, 94, 417, 62, 383, 63, 384, 129, 446, 129, 447, 222, 384, 223, 385, 192, 417, 192, 417, 158, 353, 158, 352, 62, 320, 62, 320, 192, 351, 193, 352, 223, 289, 224, 289, 159, 255, 159, 255, 223, 97, 223, 97, 157, 65, 157, 63, 223, 33, 223), PackedVector2Array(128, 81, 160, 80, 160, 159, 224, 160, 224, 192, 128, 193), PackedVector2Array(256, 64, 256, 128, 289, 128, 288, 64)])
+vertices = PackedVector2Array(292, 155, 292, 134, 315, 58, 316, 196, 293, 220, 292, 56, 229, 202, 251, 219, 103, 220, 124, 202, 124, 71, 103, 153, 104, 128, 250, 134, 251, 155, 228, 156, 231, 132, 60, 154, 60, 221, 38, 220, 39, 42, 59, 128, 390, 221, 389, 196, 424, 196, 442, 221, 443, 136, 425, 151, 378, 138, 357, 153, 355, 58, 378, 58, 348, 197, 348, 220, 58, 42, 104, 42, 186, 41, 165, 71, 187, 132, 166, 155, 250, 56, 231, 42, 445, 39, 420, 58, 443, 91, 421, 91)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(2, 1, 5), PackedInt32Array(6, 7, 8, 9), PackedInt32Array(10, 9, 8, 11, 12), PackedInt32Array(13, 14, 7, 6, 15, 16), PackedInt32Array(17, 18, 19, 20, 21), PackedInt32Array(22, 23, 24, 25), PackedInt32Array(26, 25, 24, 27), PackedInt32Array(28, 26, 27, 29), PackedInt32Array(28, 29, 30, 31), PackedInt32Array(32, 33, 4, 3), PackedInt32Array(13, 1, 0, 14), PackedInt32Array(20, 34, 21), PackedInt32Array(17, 21, 12, 11), PackedInt32Array(10, 12, 35), PackedInt32Array(10, 35, 36, 37), PackedInt32Array(37, 36, 38, 39), PackedInt32Array(15, 39, 38, 16), PackedInt32Array(40, 13, 16, 41), PackedInt32Array(40, 41, 42, 5), PackedInt32Array(2, 5, 42, 30), PackedInt32Array(31, 30, 42), PackedInt32Array(43, 31, 42), PackedInt32Array(43, 42, 44, 45)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(39, 42, 58, 42, 59, 128, 104, 128, 104, 42, 186, 41, 187, 132, 231, 132, 231, 42, 445, 39, 443, 91, 421, 91, 420, 58, 378, 58, 378, 138, 443, 136, 442, 221, 390, 221, 389, 196, 424, 196, 425, 151, 357, 153, 355, 58, 315, 58, 316, 196, 348, 197, 348, 220, 293, 220, 292, 155, 251, 155, 251, 219, 103, 220, 103, 153, 60, 154, 60, 221, 38, 220), PackedVector2Array(124, 71, 165, 71, 166, 155, 228, 156, 229, 202, 124, 202), PackedVector2Array(250, 56, 250, 134, 292, 134, 292, 56)])
 
 [node name="World" type="Node2D"]
 
@@ -152,7 +152,7 @@ position = Vector2(47, 50)
 movement_target = NodePath("../NavTarget")
 
 [node name="NavTarget" type="Marker2D" parent="TileMap"]
-position = Vector2(238, 47)
+position = Vector2(400, 212)
 
 [node name="Player" parent="." instance=ExtResource("3_r8rjm")]
 position = Vector2(239, 147)
