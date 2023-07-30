@@ -1,9 +1,10 @@
 extends TileMap
 
+@onready var player = $"../Player"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	get_node("Player").break_block.connect(_on_break_block)
+	player.break_block.connect(_on_break_block)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

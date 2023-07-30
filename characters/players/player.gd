@@ -8,6 +8,7 @@ signal break_block(coords)
 
 func _handle_input():
 	move_direction = Input.get_vector("left", "right", "up", "down")
+	print(move_direction)
 	velocity = move_direction*speed
 	if Input.is_action_pressed("run"):
 		velocity = move_direction*speed*run_speed
