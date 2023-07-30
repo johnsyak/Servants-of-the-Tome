@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://x5phf7ehyfmb" path="res://icon.svg" id="1_jpttn"]
 [ext_resource type="Script" path="res://characters/enemies/DefaultEnemy.gd" id="1_lcmvo"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uicqf"]
-size = Vector2(12, 12)
+[sub_resource type="CircleShape2D" id="CircleShape2D_uny1e"]
+radius = 3.16228
 
 [node name="DefaultEnemy" type="CharacterBody2D" node_paths=PackedStringArray("navigation_agent")]
 script = ExtResource("1_lcmvo")
@@ -14,7 +14,7 @@ navigation_agent = NodePath("NavigationAgent2D")
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_jpttn")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_uicqf")
-
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_uny1e")

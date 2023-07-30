@@ -12,8 +12,9 @@ func _process(delta):
 
 func _on_break_block(coords):
 	print("BLOCK BROKEN! " + str(coords))
-	var tile: Vector2 = local_to_map(coords[0])
-	set_cell(1, tile, -1)
+	#set_cell(1, local_to_map(coords), -1)
+	
+	erase_cell(1, local_to_map(coords))
 
 
 
