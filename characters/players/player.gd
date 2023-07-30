@@ -1,13 +1,13 @@
 extends CharacterBody2D
 
 @export var speed: int = 50
-@export var run_speed: float = 1.5
+@export var run_speed: float = 2
 var move_direction
 
 signal break_block(coords)
 
 func _handle_input():
-	move_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	move_direction = Input.get_vector("left", "right", "up", "down")
 	velocity = move_direction*speed
 	if Input.is_action_pressed("run"):
 		velocity = move_direction*speed*run_speed
