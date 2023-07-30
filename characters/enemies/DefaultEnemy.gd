@@ -29,3 +29,7 @@ func _physics_process(delta):
 	new_velocity = new_velocity * movement_speed
 	velocity = new_velocity
 	move_and_slide()
+
+
+func _on_target_timer_timeout():
+	set_movement_target(movement_target.position)

@@ -18,3 +18,8 @@ texture = ExtResource("1_jpttn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_uny1e")
+
+[node name="TargetTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="TargetTimer" to="." method="_on_target_timer_timeout"]

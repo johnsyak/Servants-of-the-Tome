@@ -132,6 +132,7 @@ sources/0 = SubResource("TileSetAtlasSource_mwge7")
 [node name="World" type="Node2D"]
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+visible = false
 top_level = true
 navigation_polygon = SubResource("NavigationPolygon_apaa4")
 
@@ -155,7 +156,7 @@ position = Vector2(239, 147)
 
 [node name="DefaultEnemy" parent="TileMap" node_paths=PackedStringArray("movement_target") instance=ExtResource("2_l4a6s")]
 position = Vector2(47, 50)
-movement_target = NodePath("NavTarget")
+movement_target = NodePath("../Player")
 
 [node name="NavTarget" type="Marker2D" parent="TileMap/DefaultEnemy"]
 position = Vector2(386, 140)
