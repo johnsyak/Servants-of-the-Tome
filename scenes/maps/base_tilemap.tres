@@ -8,6 +8,7 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k464n"]
+resource_name = "Wallfloor"
 texture = ExtResource("1_k8pvn")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
