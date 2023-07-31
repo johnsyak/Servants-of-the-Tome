@@ -18,8 +18,8 @@ func set_movement_target(target_point: Vector2):
 	navigation_agent.target_position = target_point
 	
 func _physics_process(delta):
-	if navigation_agent.is_navigation_finished():
-		return
+#	if navigation_agent.is_navigation_finished():
+#		return
 	
 	var current_agent_position: Vector2 = global_position
 	var next_path_position: Vector2 = navigation_agent.get_next_path_position()
