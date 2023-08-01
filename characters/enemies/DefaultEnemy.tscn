@@ -12,10 +12,11 @@ radius = 3.16228
 [sub_resource type="CircleShape2D" id="CircleShape2D_gvjio"]
 radius = 131.034
 
-[node name="DefaultEnemy" type="CharacterBody2D"]
+[node name="DefaultEnemy" type="CharacterBody2D" node_paths=PackedStringArray("navigation_agent")]
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_lcmvo")
+navigation_agent = NodePath("NavigationAgent2D")
 metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -38,9 +39,8 @@ autostart = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sonar"]
 shape = SubResource("CircleShape2D_gvjio")
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" type="Node" parent="."]
 script = ExtResource("1_7c2bu")
-initial_state = NodePath("EnemyIdle")
 
 [node name="EnemyIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
 script = ExtResource("4_bfawf")
@@ -49,6 +49,6 @@ enemy = NodePath("../..")
 [node name="EnemyFollow" type="Node" parent="StateMachine"]
 script = ExtResource("5_lbvy1")
 
-[connection signal="timeout" from="TargetTimer" to="." method="_on_target_timer_timeout"]
+[connection signal="timeout" from="TargetTimer" to="StateMachine/EnemyFollow" method="_on_target_timer_timeout"]
 [connection signal="body_entered" from="Sonar" to="." method="_on_sonar_body_entered"]
 [connection signal="body_exited" from="Sonar" to="." method="_on_sonar_body_exited"]
