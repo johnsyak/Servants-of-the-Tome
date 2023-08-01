@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dgb4ne6kt7ql8"]
+[gd_scene load_steps=8 format=3 uid="uid://f2ph21l0wk5o"]
 
 [ext_resource type="Script" path="res://characters/components/enemy_components/StateMachine.gd" id="1_7c2bu"]
 [ext_resource type="Texture2D" uid="uid://x5phf7ehyfmb" path="res://icon.svg" id="1_jpttn"]
@@ -39,15 +39,17 @@ autostart = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sonar"]
 shape = SubResource("CircleShape2D_gvjio")
 
-[node name="StateMachine" type="Node" parent="."]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("1_7c2bu")
+initial_state = NodePath("EnemyFollow")
 
 [node name="EnemyIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
 script = ExtResource("4_bfawf")
 enemy = NodePath("../..")
 
-[node name="EnemyFollow" type="Node" parent="StateMachine"]
+[node name="EnemyFollow" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
 script = ExtResource("5_lbvy1")
+enemy = NodePath("../..")
 
 [connection signal="timeout" from="TargetTimer" to="StateMachine/EnemyFollow" method="_on_target_timer_timeout"]
 [connection signal="body_entered" from="Sonar" to="." method="_on_sonar_body_entered"]

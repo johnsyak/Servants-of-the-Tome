@@ -8,17 +8,19 @@ var navigation_agent
 
 func set_movement_target():
 	movement_target = enemy.movement_target
+	
+func set_target_position():
+	navigation_agent.target_position = movement_target.position
 
 func set_navigation_target():
 	await get_tree().physics_frame
 	set_movement_target()
-	navigation_agent.target_position = movement_target.position
+	set_target_position()
+
 
 func set_navigation_agent():
 	await get_tree().physics_frame
 	navigation_agent = enemy.navigation_agent
-	navigation_agent.path_desired_distance = 4.0
-	navigation_agent.target_desired_distance = 4.0
 	call_deferred("actor_setup")
 
 func enter():
@@ -30,7 +32,7 @@ func actor_setup():
 	set_movement_target()
 
 func _on_target_timer_timeout():
-	set_movement_target()
+	set_target_position()
 	
 func update(delta):
 	if navigation_agent.is_navigation_finished():
