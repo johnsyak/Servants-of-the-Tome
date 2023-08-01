@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://f2ph21l0wk5o"]
+[gd_scene load_steps=6 format=3 uid="uid://f2ph21l0wk5o"]
 
 [ext_resource type="Texture2D" uid="uid://x5phf7ehyfmb" path="res://icon.svg" id="1_jpttn"]
 [ext_resource type="Script" path="res://characters/enemies/DefaultEnemy.gd" id="1_lcmvo"]
+[ext_resource type="PackedScene" uid="uid://bhxvfin04wp74" path="res://scenes/health_component.tscn" id="3_3illn"]
+[ext_resource type="PackedScene" uid="uid://bgg8wio84ode2" path="res://scenes/hit_box_component.tscn" id="4_dg6bm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uny1e"]
 radius = 3.16228
@@ -25,5 +27,11 @@ shape = SubResource("CircleShape2D_uny1e")
 
 [node name="TargetTimer" type="Timer" parent="."]
 autostart = true
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_3illn")]
+
+[node name="HitBoxComponent" parent="." instance=ExtResource("4_dg6bm")]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HitBoxComponent"]
 
 [connection signal="timeout" from="TargetTimer" to="." method="_on_target_timer_timeout"]
