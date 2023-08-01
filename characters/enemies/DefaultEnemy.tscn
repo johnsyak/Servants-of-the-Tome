@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dgb4ne6kt7ql8"]
+[gd_scene load_steps=8 format=3 uid="uid://dgb4ne6kt7ql8"]
 
 [ext_resource type="Script" path="res://characters/components/enemy_components/StateMachine.gd" id="1_7c2bu"]
 [ext_resource type="Texture2D" uid="uid://x5phf7ehyfmb" path="res://icon.svg" id="1_jpttn"]
 [ext_resource type="Script" path="res://characters/enemies/DefaultEnemy.gd" id="1_lcmvo"]
 [ext_resource type="Script" path="res://characters/components/enemy_components/EnemyIdle.gd" id="4_bfawf"]
+[ext_resource type="Script" path="res://characters/components/enemy_components/EnemyFollow.gd" id="5_lbvy1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uny1e"]
 radius = 3.16228
@@ -44,6 +45,9 @@ initial_state = NodePath("EnemyIdle")
 [node name="EnemyIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
 script = ExtResource("4_bfawf")
 enemy = NodePath("../..")
+
+[node name="EnemyFollow" type="Node" parent="StateMachine"]
+script = ExtResource("5_lbvy1")
 
 [connection signal="timeout" from="TargetTimer" to="." method="_on_target_timer_timeout"]
 [connection signal="body_entered" from="Sonar" to="." method="_on_sonar_body_entered"]
