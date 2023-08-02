@@ -3,6 +3,7 @@ class_name EnemyFollow
 
 @export var enemy: CharacterBody2D
 @export var movement_speed:float = 100.0
+
 var movement_target
 var navigation_agent
 var chase: bool = false
@@ -28,27 +29,22 @@ func enter():
 	chase = true
 	set_navigation_agent()
 	set_navigation_target()
+	enemy.timer.start()
 
 func actor_setup():
 	set_movement_target()
 
 func _on_target_timer_timeout():
-	if movement_target == null:
-		return
-	if navigation_agent == null:
-		return
-	if !chase:
-		Transitioned.emit(self, "EnemyIdle")
-		return
 	set_target_position()
 	
 func update(delta):
 	if navigation_agent.is_navigation_finished():
+		if !chase:
+			Transitioned.emit(self, "EnemyIdle")
 		return
 
 	var current_agent_position: Vector2 = enemy.global_position
 	var next_path_position: Vector2 = navigation_agent.get_next_path_position()
-
 	var new_velocity: Vector2 = (next_path_position - current_agent_position).normalized() * movement_speed
 
 	if navigation_agent.avoidance_enabled:
@@ -56,6 +52,10 @@ func update(delta):
 	else:
 		enemy.velocity = enemy.velocity.move_toward(new_velocity, 1)
 			
-func _on_sonar_body_exited(body):
+func _on_sonar_area_entered(area):
+	chase = true
+	enemy.timer.start()
+
+func _on_sonar_area_exited(area):
 	chase = false
-	
+	enemy.timer.stop()
