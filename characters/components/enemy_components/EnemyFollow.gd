@@ -1,8 +1,8 @@
 extends State
 class_name EnemyFollow
 
-@export var movement_speed:float = 100.0
 @export var enemy: CharacterBody2D
+@export var movement_speed:float = 100.0
 var movement_target
 var navigation_agent
 
@@ -28,7 +28,6 @@ func enter():
 	set_navigation_target()
 
 func actor_setup():
-	await get_tree().physics_frame
 	set_movement_target()
 
 func _on_target_timer_timeout():
@@ -47,4 +46,6 @@ func update(delta):
 		navigation_agent.set_velocity(new_velocity)
 	else:
 		enemy.velocity = enemy.velocity.move_toward(new_velocity, 1)
+	
+	
 

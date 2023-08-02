@@ -13,11 +13,11 @@ radius = 3.16228
 radius = 131.034
 
 [node name="DefaultEnemy" type="CharacterBody2D" node_paths=PackedStringArray("navigation_agent")]
+collision_mask = 2
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_lcmvo")
 navigation_agent = NodePath("NavigationAgent2D")
-metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.1, 0.1)
@@ -35,6 +35,7 @@ shape = SubResource("CircleShape2D_uny1e")
 autostart = true
 
 [node name="Sonar" type="Area2D" parent="."]
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sonar"]
 shape = SubResource("CircleShape2D_gvjio")
@@ -53,4 +54,3 @@ enemy = NodePath("../..")
 
 [connection signal="timeout" from="TargetTimer" to="StateMachine/EnemyFollow" method="_on_target_timer_timeout"]
 [connection signal="body_entered" from="Sonar" to="." method="_on_sonar_body_entered"]
-[connection signal="body_exited" from="Sonar" to="." method="_on_sonar_body_exited"]
