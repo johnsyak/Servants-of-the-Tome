@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://f2ph21l0wk5o"]
+
+[ext_resource type="Script" path="res://characters/components/enemy_components/StateMachine.gd" id="1_7c2bu"]
+[ext_resource type="Texture2D" uid="uid://x5phf7ehyfmb" path="res://icon.svg" id="1_jpttn"]
+[ext_resource type="Script" path="res://characters/enemies/DefaultEnemy.gd" id="1_lcmvo"]
+[ext_resource type="Script" path="res://characters/components/enemy_components/EnemyIdle.gd" id="4_bfawf"]
+[ext_resource type="Script" path="res://characters/components/enemy_components/EnemyFollow.gd" id="5_lbvy1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uny1e"]
+radius = 3.16228
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gvjio"]
+radius = 131.034
+
+[node name="DefaultEnemy" type="CharacterBody2D" node_paths=PackedStringArray("navigation_agent")]
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_lcmvo")
+navigation_agent = NodePath("NavigationAgent2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_jpttn")
+metadata/_edit_lock_ = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+debug_enabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_uny1e")
+
+[node name="TargetTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="Sonar" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sonar"]
+shape = SubResource("CircleShape2D_gvjio")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("1_7c2bu")
+initial_state = NodePath("EnemyIdle")
+
+[node name="EnemyIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("4_bfawf")
+enemy = NodePath("../..")
+
+[node name="EnemyFollow" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("5_lbvy1")
+enemy = NodePath("../..")
+movement_speed = null
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 140)
+
+[connection signal="timeout" from="TargetTimer" to="StateMachine/EnemyFollow" method="_on_target_timer_timeout"]
+[connection signal="area_entered" from="Sonar" to="StateMachine/EnemyIdle" method="_on_sonar_area_entered"]
+[connection signal="body_exited" from="Sonar" to="StateMachine/EnemyFollow" method="_on_sonar_body_exited"]
