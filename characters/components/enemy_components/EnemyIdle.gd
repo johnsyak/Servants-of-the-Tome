@@ -17,14 +17,12 @@ func enter():
 func update(delta: float):
 	if wander_time >0:
 		wander_time -= delta
-		
 	else:
 		randomize_wander()
 		
 func physics_update(delta: float):
 	if enemy:
 		enemy.velocity = move_direction * move_speed
-
 
 func _on_sonar_area_entered(area):
 	Transitioned.emit(self, "EnemyFollow")

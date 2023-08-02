@@ -33,6 +33,7 @@ debug_enabled = true
 shape = SubResource("CircleShape2D_uny1e")
 
 [node name="TargetTimer" type="Timer" parent="."]
+wait_time = 0.5
 
 [node name="Sonar" type="Area2D" parent="."]
 
