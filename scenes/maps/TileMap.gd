@@ -14,7 +14,6 @@ func _process(delta):
 func _on_break_block(coords):
 #	print("BLOCK BROKEN! " + str(coords))
 	#set_cell(1, local_to_map(coords), -1)
-	
 	erase_cell(1, local_to_map(coords))
 
 

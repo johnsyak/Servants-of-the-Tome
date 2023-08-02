@@ -50,6 +50,9 @@ enemy = NodePath("../..")
 script = ExtResource("5_lbvy1")
 enemy = NodePath("../..")
 
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 140)
+
 [connection signal="timeout" from="TargetTimer" to="StateMachine/EnemyFollow" method="_on_target_timer_timeout"]
 [connection signal="area_entered" from="Sonar" to="StateMachine/EnemyIdle" method="_on_sonar_area_entered"]
 [connection signal="body_exited" from="Sonar" to="StateMachine/EnemyFollow" method="_on_sonar_body_exited"]

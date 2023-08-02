@@ -55,8 +55,7 @@ func update(delta):
 		navigation_agent.set_velocity(new_velocity)
 	else:
 		enemy.velocity = enemy.velocity.move_toward(new_velocity, 1)
-		
-	
+			
 func _on_sonar_body_exited(body):
 	chase = false
 	
