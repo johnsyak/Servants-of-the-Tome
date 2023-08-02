@@ -5,6 +5,7 @@ class_name EnemyFollow
 @export var movement_speed:float = 100.0
 var movement_target
 var navigation_agent
+var chase: bool = false
 
 func set_movement_target():
 	movement_target = enemy.movement_target
@@ -24,6 +25,7 @@ func set_navigation_agent():
 	call_deferred("actor_setup")
 
 func enter():
+	chase = true
 	set_navigation_agent()
 	set_navigation_target()
 
@@ -34,6 +36,9 @@ func _on_target_timer_timeout():
 	if movement_target == null:
 		return
 	if navigation_agent == null:
+		return
+	if !chase:
+		Transitioned.emit(self, "EnemyIdle")
 		return
 	set_target_position()
 	
@@ -50,6 +55,8 @@ func update(delta):
 		navigation_agent.set_velocity(new_velocity)
 	else:
 		enemy.velocity = enemy.velocity.move_toward(new_velocity, 1)
+		
 	
 func _on_sonar_body_exited(body):
-	Transitioned.emit(self, "EnemyIdle")
+	chase = false
+	
