@@ -31,6 +31,10 @@ func actor_setup():
 	set_movement_target()
 
 func _on_target_timer_timeout():
+	if movement_target == null:
+		return
+	if navigation_agent == null:
+		return
 	set_target_position()
 	
 func update(delta):
@@ -47,5 +51,5 @@ func update(delta):
 	else:
 		enemy.velocity = enemy.velocity.move_toward(new_velocity, 1)
 	
-	
-
+func _on_sonar_body_exited(body):
+	Transitioned.emit(self, "EnemyIdle")

@@ -9,6 +9,3 @@ signal enemy_follow
 func _physics_process(delta):
 	move_and_slide()
 #
-
-func _on_sonar_body_entered(body):
-	enemy_follow.emit(self, "EnemyFollow")

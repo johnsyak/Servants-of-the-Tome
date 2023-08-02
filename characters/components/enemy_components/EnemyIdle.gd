@@ -24,3 +24,7 @@ func update(delta: float):
 func physics_update(delta: float):
 	if enemy:
 		enemy.velocity = move_direction * move_speed
+
+
+func _on_sonar_area_entered(area):
+	Transitioned.emit(self, "EnemyFollow")
