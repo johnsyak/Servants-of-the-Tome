@@ -6,7 +6,6 @@ class_name EnemyFollow
 
 var movement_target
 var navigation_agent
-var chase: bool = false
 
 func set_movement_target():
 	movement_target = enemy.movement_target
@@ -14,32 +13,30 @@ func set_movement_target():
 func set_target_position():
 	navigation_agent.target_position = movement_target.position
 
+func actor_setup():
+	set_movement_target()
+
+func _on_target_timer_timeout():
+	set_target_position()
+
 func set_navigation_target():
 	await get_tree().physics_frame
 	set_movement_target()
 	set_target_position()
-
-
+	
 func set_navigation_agent():
 	await get_tree().physics_frame
 	navigation_agent = enemy.navigation_agent
 	call_deferred("actor_setup")
 
 func enter():
-	chase = true
 	set_navigation_agent()
 	set_navigation_target()
-	enemy.timer.start()
+	enemy.follow_timer.start()
 
-func actor_setup():
-	set_movement_target()
-
-func _on_target_timer_timeout():
-	set_target_position()
-	
 func update(delta):
 	if navigation_agent.is_navigation_finished():
-		if !chase:
+		if enemy.follow_timer.is_stopped():
 			Transitioned.emit(self, "EnemyIdle")
 		return
 
@@ -53,9 +50,10 @@ func update(delta):
 		enemy.velocity = enemy.velocity.move_toward(new_velocity, 1)
 			
 func _on_sonar_area_entered(area):
-	chase = true
-	enemy.timer.start()
+	enemy.follow_timer.start()
 
 func _on_sonar_area_exited(area):
-	chase = false
-	enemy.timer.stop()
+	enemy.follow_timer.stop()
+
+func _on_attack_area_area_entered(area):
+	Transitioned.emit(self, "EnemyAttack")

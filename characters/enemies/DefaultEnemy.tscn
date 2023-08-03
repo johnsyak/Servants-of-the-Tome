@@ -17,18 +17,13 @@ radius = 131.034
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yhpvf"]
 
-[node name="DefaultEnemy" type="CharacterBody2D" node_paths=PackedStringArray("navigation_agent", "timer")]
+[node name="DefaultEnemy" type="CharacterBody2D" node_paths=PackedStringArray("navigation_agent", "follow_timer", "attack_timer")]
 wall_min_slide_angle = 0.0
 script = ExtResource("1_lcmvo")
 navigation_agent = NodePath("NavigationAgent2D")
-timer = NodePath("TargetTimer")
+follow_timer = NodePath("FollowTimer")
+attack_timer = NodePath("AttackTimer")
 metadata/_edit_lock_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_35t5y")
-
-[node name="Health" type="Node2D" parent="."]
-script = ExtResource("2_l84k6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.1, 0.1)
@@ -39,8 +34,9 @@ metadata/_edit_lock_ = true
 path_postprocessing = 1
 debug_enabled = true
 
-[node name="TargetTimer" type="Timer" parent="."]
-wait_time = 0.5
+[node name="WallCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_35t5y")
+metadata/_edit_lock_ = true
 
 [node name="Sonar" type="Area2D" parent="."]
 metadata/_edit_lock_ = true
@@ -48,13 +44,23 @@ metadata/_edit_lock_ = true
 [node name="SonarCollision" type="CollisionShape2D" parent="Sonar"]
 shape = SubResource("CircleShape2D_gvjio")
 
-[node name="AttackArea" type="Area2D" parent="."]
-scale = Vector2(1.505, 1.505)
+[node name="AttackArea" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+scale = Vector2(2, 2)
 script = ExtResource("7_ushbc")
+health_component = NodePath("../Health")
 
 [node name="AttackCollision" type="CollisionShape2D" parent="AttackArea"]
 shape = SubResource("RectangleShape2D_yhpvf")
 debug_color = Color(0, 0.647059, 0.243137, 0.419608)
+
+[node name="Health" type="Node2D" parent="."]
+script = ExtResource("2_l84k6")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="FollowTimer" type="Timer" parent="."]
+wait_time = 0.5
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("1_7c2bu")
@@ -68,10 +74,14 @@ enemy = NodePath("../..")
 script = ExtResource("5_lbvy1")
 enemy = NodePath("../..")
 
-[node name="EnemyAttack" type="Node" parent="StateMachine"]
+[node name="EnemyAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
 script = ExtResource("6_sfowh")
+enemy = NodePath("../..")
 
-[connection signal="timeout" from="TargetTimer" to="StateMachine/EnemyFollow" method="_on_target_timer_timeout"]
 [connection signal="area_entered" from="Sonar" to="StateMachine/EnemyIdle" method="_on_sonar_area_entered"]
 [connection signal="area_entered" from="Sonar" to="StateMachine/EnemyFollow" method="_on_sonar_area_entered"]
 [connection signal="area_exited" from="Sonar" to="StateMachine/EnemyFollow" method="_on_sonar_area_exited"]
+[connection signal="area_entered" from="AttackArea" to="StateMachine/EnemyFollow" method="_on_attack_area_area_entered"]
+[connection signal="area_exited" from="AttackArea" to="StateMachine/EnemyAttack" method="_on_attack_area_area_exited"]
+[connection signal="timeout" from="AttackTimer" to="StateMachine/EnemyAttack" method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="FollowTimer" to="StateMachine/EnemyFollow" method="_on_target_timer_timeout"]
