@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dnlw7e55gw5bn"]
 
 [ext_resource type="TileSet" uid="uid://dvat0f3awdjqe" path="res://scenes/maps/base_tilemap.tres" id="1_fskhl"]
-[ext_resource type="PackedScene" uid="uid://wqco173jt0n" path="res://characters/enemies/DefaultEnemy.tscn" id="2_l4a6s"]
+[ext_resource type="PackedScene" uid="uid://f2ph21l0wk5o" path="res://characters/enemies/DefaultEnemy.tscn" id="2_l4a6s"]
 [ext_resource type="Script" path="res://scenes/maps/TileMap.gd" id="2_wrqbi"]
 [ext_resource type="PackedScene" uid="uid://b4o1uyyo1ejvu" path="res://characters/players/player.tscn" id="3_r8rjm"]
 
