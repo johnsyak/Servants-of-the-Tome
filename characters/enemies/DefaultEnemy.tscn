@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://wqco173jt0n"]
+[gd_scene load_steps=12 format=3 uid="uid://f2ph21l0wk5o"]
 
 [ext_resource type="Script" path="res://characters/components/enemy_components/StateMachine.gd" id="1_7c2bu"]
 [ext_resource type="Texture2D" uid="uid://x5phf7ehyfmb" path="res://icon.svg" id="1_jpttn"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://characters/components/enemy_components/EnemyIdle.gd" id="4_bfawf"]
 [ext_resource type="Script" path="res://characters/components/enemy_components/EnemyFollow.gd" id="5_lbvy1"]
 [ext_resource type="Script" path="res://characters/components/enemy_components/EnemyAttack.gd" id="6_sfowh"]
+[ext_resource type="Script" path="res://characters/components/enemy_components/HitBoxComponent.gd" id="7_ushbc"]
+[ext_resource type="Script" path="res://characters/components/enemy_components/HealthComponent.gd" id="8_2a8bo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uny1e"]
 radius = 3.16228
@@ -13,12 +15,12 @@ radius = 3.16228
 [sub_resource type="CircleShape2D" id="CircleShape2D_gvjio"]
 radius = 131.034
 
-[node name="DefaultEnemy" type="CharacterBody2D" node_paths=PackedStringArray("navigation_agent", "timer")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yhpvf"]
+
+[node name="DefaultEnemy" type="CharacterBody2D"]
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_lcmvo")
-navigation_agent = NodePath("NavigationAgent2D")
-timer = NodePath("TargetTimer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.1, 0.1)
@@ -57,6 +59,16 @@ script = ExtResource("6_sfowh")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(0, 140)
+
+[node name="HitBox" type="Area2D" parent="."]
+script = ExtResource("7_ushbc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("RectangleShape2D_yhpvf")
+debug_color = Color(0, 0.647059, 0.243137, 0.419608)
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("8_2a8bo")
 
 [connection signal="timeout" from="TargetTimer" to="StateMachine/EnemyFollow" method="_on_target_timer_timeout"]
 [connection signal="area_entered" from="Sonar" to="StateMachine/EnemyIdle" method="_on_sonar_area_entered"]
