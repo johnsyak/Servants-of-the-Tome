@@ -14,3 +14,6 @@ func _physics_process(delta):
 func _ready():
 	follow_timer.stop()
 	attack_timer.stop()
+
+func _on_sonar_area_entered(area):
+	movement_target = 	area.owner

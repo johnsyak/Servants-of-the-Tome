@@ -26,6 +26,5 @@ script = ExtResource("2_wrqbi")
 [node name="Player" parent="." instance=ExtResource("3_r8rjm")]
 position = Vector2(-79, 25)
 
-[node name="DefaultEnemy" parent="." node_paths=PackedStringArray("movement_target") instance=ExtResource("2_l4a6s")]
-position = Vector2(265, 142)
-movement_target = NodePath("../Player")
+[node name="DefaultEnemy" parent="." instance=ExtResource("2_l4a6s")]
+position = Vector2(15, 145)

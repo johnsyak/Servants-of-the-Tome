@@ -1,9 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://b4o1uyyo1ejvu"]
+[gd_scene load_steps=8 format=3 uid="uid://b4o1uyyo1ejvu"]
 
 [ext_resource type="Script" path="res://characters/players/player.gd" id="1_nn7kv"]
 [ext_resource type="Texture2D" uid="uid://byrnmj347iut5" path="res://assets/SpriteSheet.png" id="2_7y2th"]
 [ext_resource type="Script" path="res://characters/players/Hands.gd" id="3_1ahw6"]
 [ext_resource type="Texture2D" uid="uid://d3f3e6wr1d3th" path="res://assets/hand.png" id="4_icrb8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kaa0v"]
+size = Vector2(14, 14)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c6chq"]
 radius = 6.0208
@@ -17,19 +20,27 @@ motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_nn7kv")
 
+[node name="PlayerHitbox" type="Area2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitbox"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_kaa0v")
+
+[node name="WallCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1.5)
+shape = SubResource("CircleShape2D_c6chq")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_7y2th")
 hframes = 4
 vframes = 7
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1.5)
-shape = SubResource("CircleShape2D_c6chq")
-
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
 
 [node name="Hands" type="Area2D" parent="."]
+collision_layer = 0
 script = ExtResource("3_1ahw6")
 
 [node name="Sprite2D" type="Sprite2D" parent="Hands"]

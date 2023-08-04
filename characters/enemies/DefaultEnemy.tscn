@@ -39,6 +39,7 @@ shape = SubResource("CircleShape2D_35t5y")
 metadata/_edit_lock_ = true
 
 [node name="Sonar" type="Area2D" parent="."]
+collision_layer = 0
 metadata/_edit_lock_ = true
 
 [node name="SonarCollision" type="CollisionShape2D" parent="Sonar"]
@@ -46,6 +47,7 @@ shape = SubResource("CircleShape2D_gvjio")
 
 [node name="AttackArea" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 scale = Vector2(2, 2)
+collision_layer = 0
 script = ExtResource("7_ushbc")
 health_component = NodePath("../Health")
 
@@ -78,6 +80,7 @@ enemy = NodePath("../..")
 script = ExtResource("6_sfowh")
 enemy = NodePath("../..")
 
+[connection signal="area_entered" from="Sonar" to="." method="_on_sonar_area_entered"]
 [connection signal="area_entered" from="Sonar" to="StateMachine/EnemyIdle" method="_on_sonar_area_entered"]
 [connection signal="area_entered" from="Sonar" to="StateMachine/EnemyFollow" method="_on_sonar_area_entered"]
 [connection signal="area_exited" from="Sonar" to="StateMachine/EnemyFollow" method="_on_sonar_area_exited"]
