@@ -80,6 +80,9 @@ enemy = NodePath("../..")
 script = ExtResource("6_sfowh")
 enemy = NodePath("../..")
 
+[node name="Hitbox" type="Area2D" parent="."]
+script = ExtResource("7_ushbc")
+
 [connection signal="area_entered" from="Sonar" to="." method="_on_sonar_area_entered"]
 [connection signal="area_entered" from="Sonar" to="StateMachine/EnemyIdle" method="_on_sonar_area_entered"]
 [connection signal="area_entered" from="Sonar" to="StateMachine/EnemyFollow" method="_on_sonar_area_entered"]
