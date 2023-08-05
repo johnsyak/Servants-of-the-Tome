@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://f2ph21l0wk5o"]
+[gd_scene load_steps=14 format=3 uid="uid://f2ph21l0wk5o"]
 
 [ext_resource type="Script" path="res://characters/components/enemy_components/StateMachine.gd" id="1_7c2bu"]
 [ext_resource type="Texture2D" uid="uid://x5phf7ehyfmb" path="res://icon.svg" id="1_jpttn"]
@@ -9,11 +9,14 @@
 [ext_resource type="Script" path="res://characters/components/enemy_components/EnemyAttack.gd" id="6_sfowh"]
 [ext_resource type="Script" path="res://characters/components/enemy_components/HitBoxComponent.gd" id="7_ushbc"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_35t5y"]
+radius = 3.16228
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_42y0c"]
 size = Vector2(12, 12)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_35t5y"]
-radius = 3.16228
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6k67w"]
+size = Vector2(12, 12)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gvjio"]
 radius = 131.034
@@ -21,12 +24,28 @@ radius = 131.034
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yhpvf"]
 
 [node name="DefaultEnemy" type="CharacterBody2D" node_paths=PackedStringArray("navigation_agent", "follow_timer", "attack_timer")]
+collision_layer = 4
+slide_on_ceiling = false
 wall_min_slide_angle = 0.0
 script = ExtResource("1_lcmvo")
 navigation_agent = NodePath("NavigationAgent2D")
 follow_timer = NodePath("FollowTimer")
 attack_timer = NodePath("AttackTimer")
 metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_jpttn")
+metadata/_edit_lock_ = true
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_35t5y")
+metadata/_edit_lock_ = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 10.0
+path_max_distance = 10.0
+debug_enabled = true
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 4
@@ -35,21 +54,17 @@ script = ExtResource("7_ushbc")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_42y0c")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("1_jpttn")
+[node name="WallCollision" type="Area2D" parent="."]
+collision_layer = 0
 metadata/_edit_lock_ = true
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_postprocessing = 1
-debug_enabled = true
-
-[node name="WallCollision" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_35t5y")
-metadata/_edit_lock_ = true
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallCollision"]
+shape = SubResource("RectangleShape2D_6k67w")
 
 [node name="Sonar" type="Area2D" parent="."]
+scale = Vector2(2, 2)
 collision_layer = 0
+collision_mask = 2
 metadata/_edit_lock_ = true
 
 [node name="SonarCollision" type="CollisionShape2D" parent="Sonar"]
@@ -58,6 +73,7 @@ shape = SubResource("CircleShape2D_gvjio")
 [node name="AttackArea" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 scale = Vector2(2, 2)
 collision_layer = 0
+collision_mask = 2
 script = ExtResource("7_ushbc")
 health_component = NodePath("../Health")
 metadata/_edit_lock_ = true
@@ -91,6 +107,8 @@ enemy = NodePath("../..")
 [node name="Health" type="Node2D" parent="."]
 script = ExtResource("2_l84k6")
 
+[connection signal="body_entered" from="WallCollision" to="StateMachine/EnemyFollow" method="_on_wall_collision_body_entered"]
+[connection signal="body_exited" from="WallCollision" to="StateMachine/EnemyFollow" method="_on_wall_collision_body_exited"]
 [connection signal="area_entered" from="Sonar" to="." method="_on_sonar_area_entered"]
 [connection signal="area_entered" from="Sonar" to="StateMachine/EnemyIdle" method="_on_sonar_area_entered"]
 [connection signal="area_entered" from="Sonar" to="StateMachine/EnemyFollow" method="_on_sonar_area_entered"]

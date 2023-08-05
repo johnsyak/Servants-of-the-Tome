@@ -20,12 +20,10 @@ func _on_target_timer_timeout():
 	set_target_position()
 
 func set_navigation_target():
-	await get_tree().physics_frame
 	set_movement_target()
 	set_target_position()
 	
 func set_navigation_agent():
-	await get_tree().physics_frame
 	navigation_agent = enemy.navigation_agent
 	call_deferred("actor_setup")
 
@@ -57,3 +55,9 @@ func _on_sonar_area_exited(area):
 
 func _on_attack_area_area_entered(area):
 	Transitioned.emit(self, "EnemyAttack")
+
+func _on_wall_collision_body_entered(body):
+	pass # Replace with function body.
+
+func _on_wall_collision_body_exited(body):
+	pass # Replace with function body.
