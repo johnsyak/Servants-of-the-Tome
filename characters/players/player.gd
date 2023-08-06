@@ -11,6 +11,7 @@ func _handle_input():
 	velocity = move_direction*speed
 	if Input.is_action_pressed("run"):
 		velocity = move_direction*speed*run_speed
+	move_and_slide()
 		
 func _physics_process(delta):
 	

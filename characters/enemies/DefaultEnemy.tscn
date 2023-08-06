@@ -18,7 +18,7 @@ radius = 3.16228
 [sub_resource type="CircleShape2D" id="CircleShape2D_gvjio"]
 radius = 131.034
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yhpvf"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_f5r6f"]
 
 [node name="DefaultEnemy" type="CharacterBody2D" node_paths=PackedStringArray("navigation_agent", "follow_timer", "attack_timer")]
 wall_min_slide_angle = 0.0
@@ -41,6 +41,7 @@ texture = ExtResource("1_jpttn")
 metadata/_edit_lock_ = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+target_desired_distance = 20.0
 path_postprocessing = 1
 debug_enabled = true
 
@@ -49,6 +50,7 @@ shape = SubResource("CircleShape2D_35t5y")
 metadata/_edit_lock_ = true
 
 [node name="Sonar" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 metadata/_edit_lock_ = true
 
@@ -63,7 +65,7 @@ health_component = NodePath("../Health")
 metadata/_edit_lock_ = true
 
 [node name="AttackCollision" type="CollisionShape2D" parent="AttackArea"]
-shape = SubResource("RectangleShape2D_yhpvf")
+shape = SubResource("CircleShape2D_f5r6f")
 debug_color = Color(0, 0.647059, 0.243137, 0.419608)
 
 [node name="AttackTimer" type="Timer" parent="."]
