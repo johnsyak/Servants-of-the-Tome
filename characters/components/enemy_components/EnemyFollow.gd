@@ -57,7 +57,9 @@ func _on_attack_area_area_entered(area):
 	Transitioned.emit(self, "EnemyAttack")
 
 func _on_wall_collision_body_entered(body):
-	pass # Replace with function body.
+	var vel = enemy.velocity.length()
+	if enemy.velocity.length() < 50:
+		pass
 
 func _on_wall_collision_body_exited(body):
 	pass # Replace with function body.

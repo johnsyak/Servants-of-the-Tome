@@ -71,7 +71,9 @@ wall={
 [layer_names]
 
 2d_physics/layer_1="Tilemap"
+2d_navigation/layer_1="Tilemap"
 2d_physics/layer_2="Player"
+2d_navigation/layer_2="Tilebreakers"
 2d_physics/layer_3="Enemies"
 
 [rendering]
