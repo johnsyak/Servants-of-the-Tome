@@ -47,11 +47,12 @@ path_desired_distance = 10.0
 path_max_distance = 10.0
 debug_enabled = true
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="HitBoxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 collision_layer = 4
 script = ExtResource("7_ushbc")
+health_component = NodePath("../HealthComponent")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
 shape = SubResource("RectangleShape2D_42y0c")
 
 [node name="WallCollision" type="Area2D" parent="."]
@@ -75,7 +76,7 @@ scale = Vector2(2, 2)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("7_ushbc")
-health_component = NodePath("../Health")
+health_component = NodePath("../HealthComponent")
 metadata/_edit_lock_ = true
 
 [node name="AttackCollision" type="CollisionShape2D" parent="AttackArea"]
@@ -104,7 +105,7 @@ enemy = NodePath("../..")
 script = ExtResource("6_sfowh")
 enemy = NodePath("../..")
 
-[node name="Health" type="Node2D" parent="."]
+[node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("2_l84k6")
 
 [connection signal="body_entered" from="WallCollision" to="StateMachine/EnemyFollow" method="_on_wall_collision_body_entered"]
