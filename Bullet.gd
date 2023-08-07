@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var speed := 750
+@export var speed := 400
 
 var attack_damage := 10.0
 var knockback_force := 100
@@ -29,6 +29,9 @@ func _on_area_shape_entered(area_rid, area, area_shape_index, local_shape_index)
 		hitbox.damage(attack)
 		queue_free()
 		
+func _on_body_entered(body):
+	if body is TileMap:
+		queue_free()
 
 
 
