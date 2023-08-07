@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://b4o1uyyo1ejvu"]
+[gd_scene load_steps=10 format=3 uid="uid://b4o1uyyo1ejvu"]
 
 [ext_resource type="Script" path="res://characters/players/player.gd" id="1_nn7kv"]
 [ext_resource type="PackedScene" uid="uid://d2aoy5dkntdau" path="res://projectiles/bullet.tscn" id="2_5jb3i"]
 [ext_resource type="Texture2D" uid="uid://byrnmj347iut5" path="res://assets/SpriteSheet.png" id="2_7y2th"]
 [ext_resource type="Script" path="res://characters/players/Hands.gd" id="3_1ahw6"]
+[ext_resource type="Script" path="res://characters/players/Camera2D.gd" id="3_krmtc"]
 [ext_resource type="Texture2D" uid="uid://d3f3e6wr1d3th" path="res://assets/hand.png" id="4_icrb8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kaa0v"]
@@ -46,6 +47,7 @@ metadata/_edit_lock_ = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
+script = ExtResource("3_krmtc")
 metadata/_edit_lock_ = true
 
 [node name="Hands" type="Area2D" parent="."]
