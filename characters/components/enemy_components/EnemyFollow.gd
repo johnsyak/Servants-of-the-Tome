@@ -2,7 +2,7 @@ extends State
 class_name EnemyFollow
 
 @export var enemy: CharacterBody2D
-@export var movement_speed:float = 100.0
+@export var movement_speed:float = 200.0
 
 var movement_target
 var navigation_agent
@@ -40,7 +40,7 @@ func update(delta):
 
 	var current_agent_position: Vector2 = enemy.global_position
 	var next_path_position: Vector2 = navigation_agent.get_next_path_position()
-	var new_velocity: Vector2 = (next_path_position - current_agent_position).normalized() * movement_speed
+	var new_velocity: Vector2 = lerp(enemy.velocity, ((next_path_position - current_agent_position).normalized() * movement_speed), 0.05)
 
 	if navigation_agent.avoidance_enabled:
 		navigation_agent.set_velocity(new_velocity)
