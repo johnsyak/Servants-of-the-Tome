@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://f2ph21l0wk5o"]
+[gd_scene load_steps=14 format=3 uid="uid://f2ph21l0wk5o"]
 
 [ext_resource type="Script" path="res://characters/components/enemy_components/StateMachine.gd" id="1_7c2bu"]
 [ext_resource type="Texture2D" uid="uid://x5phf7ehyfmb" path="res://icon.svg" id="1_jpttn"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://characters/components/enemy_components/EnemyFollow.gd" id="5_lbvy1"]
 [ext_resource type="Script" path="res://characters/components/enemy_components/EnemyAttack.gd" id="6_sfowh"]
 [ext_resource type="Script" path="res://characters/components/enemy_components/HitBoxComponent.gd" id="7_ushbc"]
-[ext_resource type="Script" path="res://characters/enemies/Breakthrough.gd" id="8_0oscw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_35t5y"]
 radius = 3.16228
