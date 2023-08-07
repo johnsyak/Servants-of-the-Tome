@@ -7,7 +7,7 @@ var health : float
 func _ready():
 	health = max_health
 	
-func damgage(attack: Attack):
+func damage(attack: Attack):
 	health -= attack.attack_damage
 	
 	if health <= 0:
