@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://b4o1uyyo1ejvu"]
+[gd_scene load_steps=9 format=3 uid="uid://b4o1uyyo1ejvu"]
 
 [ext_resource type="Script" path="res://characters/players/player.gd" id="1_nn7kv"]
+[ext_resource type="PackedScene" uid="uid://d2aoy5dkntdau" path="res://projectiles/bullet.tscn" id="2_5jb3i"]
 [ext_resource type="Texture2D" uid="uid://byrnmj347iut5" path="res://assets/SpriteSheet.png" id="2_7y2th"]
 [ext_resource type="Script" path="res://characters/players/Hands.gd" id="3_1ahw6"]
 [ext_resource type="Texture2D" uid="uid://d3f3e6wr1d3th" path="res://assets/hand.png" id="4_icrb8"]
@@ -20,10 +21,13 @@ collision_layer = 2
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_nn7kv")
+bullet_scene = ExtResource("2_5jb3i")
+metadata/_edit_lock_ = true
 
 [node name="PlayerHitbox" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 0
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitbox"]
 position = Vector2(0, 1)
@@ -32,18 +36,22 @@ shape = SubResource("RectangleShape2D_kaa0v")
 [node name="WallCollision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1.5)
 shape = SubResource("CircleShape2D_c6chq")
+metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_7y2th")
 hframes = 4
 vframes = 7
+metadata/_edit_lock_ = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
+metadata/_edit_lock_ = true
 
 [node name="Hands" type="Area2D" parent="."]
 collision_layer = 0
 script = ExtResource("3_1ahw6")
+metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Hands"]
 position = Vector2(12, 2)
@@ -54,5 +62,11 @@ position = Vector2(12, 2)
 shape = SubResource("CircleShape2D_73v8h")
 metadata/_edit_lock_ = true
 
+[node name="GunCooldown" type="Timer" parent="."]
+wait_time = 0.327
+
+[node name="Muzzle" type="Marker2D" parent="."]
+
 [connection signal="body_entered" from="Hands" to="Hands" method="_on_body_entered"]
 [connection signal="body_exited" from="Hands" to="Hands" method="_on_body_exited"]
+[connection signal="timeout" from="GunCooldown" to="." method="_on_gun_cooldown_timeout"]

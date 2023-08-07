@@ -48,11 +48,12 @@ path_desired_distance = 10.0
 path_max_distance = 10.0
 debug_enabled = true
 
-[node name="HitboxComponent" type="Area2D" parent="."]
+[node name="HitBoxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 collision_layer = 4
 script = ExtResource("7_ushbc")
+health_component = NodePath("../HealthComponent")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
 shape = SubResource("RectangleShape2D_42y0c")
 
 [node name="WallCollision" type="Area2D" parent="."]
@@ -103,10 +104,6 @@ enemy = NodePath("../..")
 
 [node name="EnemyAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
 script = ExtResource("6_sfowh")
-enemy = NodePath("../..")
-
-[node name="Breakthrough" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
-script = ExtResource("8_0oscw")
 enemy = NodePath("../..")
 
 [node name="HealthComponent" type="Node2D" parent="."]
