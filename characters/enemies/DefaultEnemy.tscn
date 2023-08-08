@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://f2ph21l0wk5o"]
+[gd_scene load_steps=15 format=3 uid="uid://f2ph21l0wk5o"]
 
 [ext_resource type="Script" path="res://characters/components/enemy_components/StateMachine.gd" id="1_7c2bu"]
 [ext_resource type="Texture2D" uid="uid://x5phf7ehyfmb" path="res://icon.svg" id="1_jpttn"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://characters/components/enemy_components/EnemyFollow.gd" id="5_lbvy1"]
 [ext_resource type="Script" path="res://characters/components/enemy_components/EnemyAttack.gd" id="6_sfowh"]
 [ext_resource type="Script" path="res://characters/components/enemy_components/HitBoxComponent.gd" id="7_ushbc"]
+[ext_resource type="Script" path="res://characters/components/enemy_components/MoveToTome.gd" id="8_onu01"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_35t5y"]
 radius = 3.16228
@@ -93,7 +94,7 @@ wait_time = 0.5
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("1_7c2bu")
-initial_state = NodePath("EnemyIdle")
+initial_state = NodePath("MoveToTome")
 
 [node name="EnemyIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
 script = ExtResource("4_bfawf")
@@ -107,6 +108,10 @@ enemy = NodePath("../..")
 script = ExtResource("6_sfowh")
 enemy = NodePath("../..")
 
+[node name="MoveToTome" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("8_onu01")
+enemy = NodePath("../..")
+
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("2_l84k6")
 
@@ -114,7 +119,7 @@ script = ExtResource("2_l84k6")
 [connection signal="body_exited" from="WallCollision" to="StateMachine/EnemyFollow" method="_on_wall_collision_body_exited"]
 [connection signal="area_entered" from="Sonar" to="." method="_on_sonar_area_entered"]
 [connection signal="area_entered" from="Sonar" to="StateMachine/EnemyIdle" method="_on_sonar_area_entered"]
-[connection signal="area_entered" from="Sonar" to="StateMachine/EnemyFollow" method="_on_sonar_area_entered"]
+[connection signal="area_entered" from="Sonar" to="StateMachine/MoveToTome" method="_on_sonar_area_entered"]
 [connection signal="area_exited" from="Sonar" to="StateMachine/EnemyFollow" method="_on_sonar_area_exited"]
 [connection signal="area_entered" from="AttackArea" to="StateMachine/EnemyFollow" method="_on_attack_area_area_entered"]
 [connection signal="area_exited" from="AttackArea" to="StateMachine/EnemyAttack" method="_on_attack_area_area_exited"]

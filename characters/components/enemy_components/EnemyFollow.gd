@@ -40,15 +40,12 @@ func update(delta):
 
 	var current_agent_position: Vector2 = enemy.global_position
 	var next_path_position: Vector2 = navigation_agent.get_next_path_position()
-	var new_velocity: Vector2 = lerp(enemy.velocity, ((next_path_position - current_agent_position).normalized() * movement_speed), 0.05)
+	var new_velocity: Vector2 = (next_path_position - current_agent_position).normalized() * movement_speed
 
 	if navigation_agent.avoidance_enabled:
 		navigation_agent.set_velocity(new_velocity)
 	else:
 		enemy.velocity = enemy.velocity.move_toward(new_velocity, 1)
-			
-func _on_sonar_area_entered(area):
-	enemy.follow_timer.start()
 
 func _on_sonar_area_exited(area):
 	enemy.follow_timer.stop()
