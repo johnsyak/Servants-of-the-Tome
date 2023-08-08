@@ -24,7 +24,7 @@ radius = 131.034
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f5r6f"]
 
-[node name="DefaultEnemy" type="CharacterBody2D" node_paths=PackedStringArray("navigation_agent", "follow_timer", "attack_timer", "idle_timer")]
+[node name="DefaultEnemy" type="CharacterBody2D" node_paths=PackedStringArray("navigation_agent", "follow_timer", "attack_timer")]
 collision_layer = 4
 slide_on_ceiling = false
 wall_min_slide_angle = 0.0
@@ -32,7 +32,6 @@ script = ExtResource("1_lcmvo")
 navigation_agent = NodePath("NavigationAgent2D")
 follow_timer = NodePath("FollowTimer")
 attack_timer = NodePath("AttackTimer")
-idle_timer = NodePath("IdleTimer")
 metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -46,6 +45,7 @@ metadata/_edit_lock_ = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 10.0
+target_desired_distance = 20.0
 path_max_distance = 10.0
 path_postprocessing = 1
 debug_enabled = true
@@ -90,10 +90,7 @@ debug_color = Color(0, 0.647059, 0.243137, 0.419608)
 wait_time = 0.5
 
 [node name="FollowTimer" type="Timer" parent="."]
-wait_time = 0.2
-
-[node name="IdleTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 0.5
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("1_7c2bu")
@@ -106,6 +103,7 @@ enemy = NodePath("../..")
 [node name="MoveToTome" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
 script = ExtResource("6_opt0n")
 enemy = NodePath("../..")
+speed = null
 
 [node name="EnemyFollow" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
 script = ExtResource("5_lbvy1")
@@ -124,11 +122,8 @@ script = ExtResource("2_l84k6")
 [connection signal="area_entered" from="Sonar" to="." method="_on_sonar_area_entered"]
 [connection signal="area_entered" from="Sonar" to="StateMachine/EnemyIdle" method="_on_sonar_area_entered"]
 [connection signal="area_entered" from="Sonar" to="StateMachine/MoveToTome" method="_on_sonar_area_entered"]
-[connection signal="area_entered" from="Sonar" to="StateMachine/EnemyFollow" method="_on_sonar_area_entered"]
 [connection signal="area_exited" from="Sonar" to="StateMachine/EnemyFollow" method="_on_sonar_area_exited"]
 [connection signal="area_entered" from="AttackArea" to="StateMachine/EnemyFollow" method="_on_attack_area_area_entered"]
 [connection signal="area_exited" from="AttackArea" to="StateMachine/EnemyAttack" method="_on_attack_area_area_exited"]
 [connection signal="timeout" from="AttackTimer" to="StateMachine/EnemyAttack" method="_on_attack_timer_timeout"]
-[connection signal="timeout" from="FollowTimer" to="StateMachine/MoveToTome" method="_on_follow_timer_timeout"]
 [connection signal="timeout" from="FollowTimer" to="StateMachine/EnemyFollow" method="_on_target_timer_timeout"]
-[connection signal="timeout" from="IdleTimer" to="StateMachine/EnemyIdle" method="_on_idle_timer_timeout"]

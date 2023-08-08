@@ -1,9 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://diuyhb46a1ltd"]
+[gd_scene load_steps=4 format=3 uid="uid://diuyhb46a1ltd"]
 
 [ext_resource type="Texture2D" uid="uid://x5phf7ehyfmb" path="res://icon.svg" id="1_skplc"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7p6dw"]
+size = Vector2(26, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_52erm"]
+size = Vector2(28, 28)
+
 [node name="tome" type="CharacterBody2D"]
+scale = Vector2(0.575, 0.575)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_skplc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7p6dw")
+
+[node name="TomeCollision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TomeCollision"]
+shape = SubResource("RectangleShape2D_52erm")
+debug_color = Color(0.862745, 0.32549, 0.407843, 0.419608)

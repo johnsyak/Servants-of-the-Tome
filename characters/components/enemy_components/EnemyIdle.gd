@@ -12,7 +12,11 @@ func randomize_wander():
 	wander_time = randf_range(1, 3)
 	
 func enter():
+	enemy.idle_timer.start()
 	randomize_wander()
+	
+func exit():
+	enemy.idle_timer.stop()
 	
 func update(delta: float):
 	if wander_time >0:
@@ -26,3 +30,6 @@ func physics_update(delta: float):
 
 func _on_sonar_area_entered(area):
 	Transitioned.emit(self, "EnemyFollow")
+
+func _on_idle_timer_timeout():
+	Transitioned.emit(self, "MoveToTome")
