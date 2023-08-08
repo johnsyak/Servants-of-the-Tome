@@ -8,7 +8,7 @@ size = Vector2(26, 26)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52erm"]
 size = Vector2(28, 28)
 
-[node name="tome" type="CharacterBody2D"]
+[node name="tome" type="CharacterBody2D" groups=["tome"]]
 scale = Vector2(0.575, 0.575)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

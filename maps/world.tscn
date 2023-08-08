@@ -34,12 +34,35 @@ layer_1/tile_data = PackedInt32Array(65547, 2, 0, 131083, 2, 0, 196619, 2, 0, 19
 script = ExtResource("2_wrqbi")
 
 [node name="Player" parent="." instance=ExtResource("3_r8rjm")]
-position = Vector2(252, -45)
+position = Vector2(316, -56)
 
-[node name="DefaultEnemy" parent="." node_paths=PackedStringArray("movement_target") instance=ExtResource("2_l4a6s")]
+[node name="DefaultEnemy" parent="." instance=ExtResource("2_l4a6s")]
 position = Vector2(15, 145)
-movement_target = NodePath("../tome")
 
 [node name="tome" parent="." instance=ExtResource("5_jvcxn")]
 position = Vector2(275, 15)
 collision_layer = 7
+
+[node name="DefaultEnemy2" parent="." instance=ExtResource("2_l4a6s")]
+position = Vector2(-46, 138)
+
+[node name="DefaultEnemy3" parent="." instance=ExtResource("2_l4a6s")]
+position = Vector2(-55, 104)
+
+[node name="DefaultEnemy4" parent="." instance=ExtResource("2_l4a6s")]
+position = Vector2(50, 135)
+
+[node name="DefaultEnemy5" parent="." instance=ExtResource("2_l4a6s")]
+position = Vector2(463, 149)
+
+[node name="DefaultEnemy6" parent="." instance=ExtResource("2_l4a6s")]
+position = Vector2(417, 148)
+
+[node name="DefaultEnemy7" parent="." instance=ExtResource("2_l4a6s")]
+position = Vector2(501, 146)
+
+[node name="DefaultEnemy8" parent="." instance=ExtResource("2_l4a6s")]
+position = Vector2(536, 145)
+
+[node name="DefaultEnemy9" parent="." instance=ExtResource("2_l4a6s")]
+position = Vector2(575, 150)

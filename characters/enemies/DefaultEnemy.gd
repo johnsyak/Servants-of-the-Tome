@@ -7,7 +7,7 @@ extends CharacterBody2D
 @export var attack_timer: Timer
 @export var idle_timer: Timer
 
-var default_target
+@onready var default_target = get_tree().get_nodes_in_group("tome")[0]
 
 signal enemy_follow
 
@@ -18,7 +18,6 @@ func _ready():
 	follow_timer.stop()
 	attack_timer.stop()
 	idle_timer.start()
-	default_target = movement_target
 
 func _on_sonar_area_entered(area):
 	movement_target = 	area.owner
