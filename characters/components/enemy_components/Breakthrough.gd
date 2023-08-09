@@ -20,8 +20,9 @@ func physics_update(_delta: float):
 	pass
 
 func _on_wall_collision_body_entered(body):
-	var coords = marker.get_global_position()
-	var coords2 = body.get_global_position()
-	emit_signal("breakthrough", coords)
+	pass
+#	var coords = marker.get_global_position()
+#	var coords2 = body.get_global_position()
+#	emit_signal("breakthrough", coords)
 
 
