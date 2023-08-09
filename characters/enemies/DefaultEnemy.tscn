@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cqoca1r5t0iep"]
+[gd_scene load_steps=16 format=3 uid="uid://cqoca1r5t0iep"]
 
 [ext_resource type="Script" path="res://characters/components/enemy_components/StateMachine.gd" id="1_7c2bu"]
 [ext_resource type="Texture2D" uid="uid://x5phf7ehyfmb" path="res://icon.svg" id="1_jpttn"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://characters/components/enemy_components/MoveToTome.gd" id="6_opt0n"]
 [ext_resource type="Script" path="res://characters/components/enemy_components/EnemyAttack.gd" id="6_sfowh"]
 [ext_resource type="Script" path="res://characters/components/enemy_components/HitBoxComponent.gd" id="7_ushbc"]
+[ext_resource type="Script" path="res://characters/components/enemy_components/Breakthrough.gd" id="9_uuykf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_35t5y"]
 radius = 3.16228
@@ -54,6 +55,7 @@ debug_enabled = true
 collision_layer = 4
 script = ExtResource("7_ushbc")
 health_component = NodePath("../HealthComponent")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
 shape = SubResource("RectangleShape2D_42y0c")
@@ -115,11 +117,24 @@ enemy = NodePath("../..")
 script = ExtResource("6_sfowh")
 enemy = NodePath("../..")
 
+[node name="Breakthrough" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "marker")]
+script = ExtResource("9_uuykf")
+enemy = NodePath("../..")
+marker = NodePath("../../Marker2D")
+
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("2_l84k6")
+metadata/_edit_lock_ = true
 
-[connection signal="body_entered" from="WallCollision" to="StateMachine/MoveToTome" method="_on_wall_collision_body_entered"]
+[node name="Marker2D" type="Marker2D" parent="."]
+modulate = Color(0, 1, 1, 1)
+top_level = true
+z_index = 1
+y_sort_enabled = true
+position = Vector2(15, 0)
+
 [connection signal="body_entered" from="WallCollision" to="StateMachine/EnemyFollow" method="_on_wall_collision_body_entered"]
+[connection signal="body_entered" from="WallCollision" to="StateMachine/Breakthrough" method="_on_wall_collision_body_entered"]
 [connection signal="body_exited" from="WallCollision" to="StateMachine/EnemyFollow" method="_on_wall_collision_body_exited"]
 [connection signal="area_entered" from="Sonar" to="." method="_on_sonar_area_entered"]
 [connection signal="area_entered" from="Sonar" to="StateMachine/EnemyIdle" method="_on_sonar_area_entered"]

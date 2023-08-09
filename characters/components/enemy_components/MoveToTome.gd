@@ -32,9 +32,5 @@ func physics_update(_delta: float):
 func _on_sonar_area_entered(area):
 	Transitioned.emit(self, "EnemyFollow")
 
-func _on_wall_collision_body_entered(body):
-	pass
-	#Transitioned.emit(self, "EnemyIdle")
-
 func _on_follow_timer_timeout():
 	enemy.navigation_agent.target_position = enemy.movement_target.position
