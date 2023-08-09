@@ -7,6 +7,8 @@ extends CharacterBody2D
 @export var attack_timer: Timer
 @export var idle_timer: Timer
 @export var rotation_speed = 50
+@export var walk_speed:float = 10.0
+@export var run_speed:float = 200.0
 
 @onready var default_target = get_tree().get_nodes_in_group("tome")[0]
 

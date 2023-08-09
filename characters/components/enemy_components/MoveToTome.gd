@@ -2,7 +2,6 @@ extends State
 class_name move_to_tome
 
 @export var enemy: CharacterBody2D
-@export var speed:float = 10.0
 
 func enter():
 	enemy.movement_target = enemy.default_target
@@ -19,7 +18,7 @@ func update(_delta: float):
 
 	var current_agent_position: Vector2 = enemy.global_position
 	var next_path_position: Vector2 = enemy.navigation_agent.get_next_path_position()
-	var new_velocity: Vector2 = (next_path_position - current_agent_position).normalized() * speed
+	var new_velocity: Vector2 = (next_path_position - current_agent_position).normalized() * enemy.walk_speed
 
 	if enemy.navigation_agent.avoidance_enabled:
 		enemy.navigation_agent.set_velocity(new_velocity)
