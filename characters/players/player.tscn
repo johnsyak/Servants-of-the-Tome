@@ -14,7 +14,7 @@ size = Vector2(14, 14)
 radius = 6.0208
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_73v8h"]
-radius = 3.0
+radius = 0.0
 
 [node name="Player" type="CharacterBody2D"]
 texture_filter = 1
@@ -60,9 +60,8 @@ position = Vector2(12, 2)
 texture = ExtResource("4_icrb8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hands"]
-position = Vector2(12, 2)
+position = Vector2(15, 2)
 shape = SubResource("CircleShape2D_73v8h")
-metadata/_edit_lock_ = true
 
 [node name="GunCooldown" type="Timer" parent="."]
 wait_time = 0.327
