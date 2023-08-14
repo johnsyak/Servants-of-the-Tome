@@ -37,20 +37,4 @@ func _handle_input():
 	move_and_slide()
 		
 func _physics_process(delta):
-	
 	_handle_input()
-	#this will only work for direction down for now
-	breakSouthWall(move_and_collide(velocity * delta))
-
-
-func breakSouthWall(collision:KinematicCollision2D):
-	pass
-#	if collision:
-#		emit_signal("break_block", snap_to_grid(collision.get_position()))
-
-func snap_to_grid(collision:Vector2) -> Vector2:
-	return Vector2(snapped(collision.x, 16), snapped(collision.y, 16))
-
-
-
-
