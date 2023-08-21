@@ -18,7 +18,7 @@ radius = 3.16228
 size = Vector2(12, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6k67w"]
-size = Vector2(14, 14)
+size = Vector2(12, 12)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gvjio"]
 radius = 131.034
@@ -34,6 +34,9 @@ navigation_agent = NodePath("NavigationAgent2D")
 follow_timer = NodePath("FollowTimer")
 attack_timer = NodePath("AttackTimer")
 idle_timer = NodePath("IdleTimer")
+rotation_speed = null
+walk_speed = null
+run_speed = null
 metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -48,7 +51,6 @@ metadata/_edit_lock_ = true
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 10.0
 path_max_distance = 10.0
-navigation_layers = 2
 path_postprocessing = 1
 debug_enabled = true
 
@@ -63,6 +65,7 @@ shape = SubResource("RectangleShape2D_42y0c")
 
 [node name="WallCollision" type="Area2D" parent="."]
 collision_layer = 0
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallCollision"]
 shape = SubResource("RectangleShape2D_6k67w")
@@ -97,8 +100,6 @@ wait_time = 0.2
 [node name="IdleTimer" type="Timer" parent="."]
 wait_time = 10.0
 
-[node name="BreakthroughTimer" type="Timer" parent="."]
-
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("1_7c2bu")
 initial_state = NodePath("EnemyIdle")
@@ -119,18 +120,28 @@ enemy = NodePath("../..")
 script = ExtResource("6_sfowh")
 enemy = NodePath("../..")
 
-[node name="Breakthrough" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+[node name="Breakthrough" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "marker")]
 script = ExtResource("9_uuykf")
 enemy = NodePath("../..")
+marker = NodePath("../../Marker2D")
 
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("2_l84k6")
 metadata/_edit_lock_ = true
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
-target_position = Vector2(51, 0)
-metadata/_edit_lock_ = true
+[node name="Marker2D" type="Marker2D" parent="."]
+modulate = Color(0, 1, 1, 1)
+top_level = true
+z_index = 1
+y_sort_enabled = true
+position = Vector2(15, 0)
 
+[connection signal="area_shape_entered" from="WallCollision" to="StateMachine/EnemyFollow" method="_on_wall_collision_area_shape_entered"]
+[connection signal="body_entered" from="WallCollision" to="." method="_on_wall_collision_body_entered"]
+[connection signal="body_entered" from="WallCollision" to="StateMachine/EnemyFollow" method="_on_wall_collision_body_entered"]
+[connection signal="body_entered" from="WallCollision" to="StateMachine/Breakthrough" method="_on_wall_collision_body_entered"]
+[connection signal="body_exited" from="WallCollision" to="StateMachine/EnemyFollow" method="_on_wall_collision_body_exited"]
+[connection signal="body_shape_entered" from="WallCollision" to="StateMachine/EnemyFollow" method="_on_wall_collision_body_shape_entered"]
 [connection signal="area_entered" from="Sonar" to="." method="_on_sonar_area_entered"]
 [connection signal="area_entered" from="Sonar" to="StateMachine/EnemyIdle" method="_on_sonar_area_entered"]
 [connection signal="area_entered" from="Sonar" to="StateMachine/MoveToTome" method="_on_sonar_area_entered"]
@@ -142,4 +153,3 @@ metadata/_edit_lock_ = true
 [connection signal="timeout" from="FollowTimer" to="StateMachine/MoveToTome" method="_on_follow_timer_timeout"]
 [connection signal="timeout" from="FollowTimer" to="StateMachine/EnemyFollow" method="_on_target_timer_timeout"]
 [connection signal="timeout" from="IdleTimer" to="StateMachine/EnemyIdle" method="_on_idle_timer_timeout"]
-[connection signal="timeout" from="BreakthroughTimer" to="StateMachine/Breakthrough" method="_on_breakthrough_timer_timeout"]

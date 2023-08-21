@@ -25,7 +25,7 @@ radius = 131.034
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f5r6f"]
 
-[node name="DefaultEnemy" type="CharacterBody2D" node_paths=PackedStringArray("navigation_agent", "follow_timer", "attack_timer", "idle_timer")]
+[node name="DefaultEnemy" type="CharacterBody2D" node_paths=PackedStringArray("navigation_agent", "follow_timer", "attack_timer", "idle_timer", "marker")]
 collision_layer = 4
 slide_on_ceiling = false
 wall_min_slide_angle = 0.0
@@ -34,7 +34,17 @@ navigation_agent = NodePath("NavigationAgent2D")
 follow_timer = NodePath("FollowTimer")
 attack_timer = NodePath("AttackTimer")
 idle_timer = NodePath("IdleTimer")
+marker = NodePath("Marker2D")
 metadata/_edit_lock_ = true
+
+[node name="Marker2D" type="Marker2D" parent="."]
+modulate = Color(0, 1, 1, 1)
+self_modulate = Color(1, 0, 1, 1)
+top_level = true
+z_index = 1
+y_sort_enabled = true
+position = Vector2(15, 0)
+scale = Vector2(0.5, 0.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.1, 0.1)
@@ -53,6 +63,7 @@ path_postprocessing = 1
 debug_enabled = true
 
 [node name="HitBoxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+visible = false
 collision_layer = 4
 script = ExtResource("7_ushbc")
 health_component = NodePath("../HealthComponent")
@@ -65,9 +76,11 @@ shape = SubResource("RectangleShape2D_42y0c")
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallCollision"]
+position = Vector2(36, 0)
 shape = SubResource("RectangleShape2D_6k67w")
 
 [node name="Sonar" type="Area2D" parent="."]
+visible = false
 scale = Vector2(2, 2)
 collision_layer = 0
 collision_mask = 2
@@ -77,6 +90,7 @@ metadata/_edit_lock_ = true
 shape = SubResource("CircleShape2D_gvjio")
 
 [node name="AttackArea" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+visible = false
 scale = Vector2(2, 2)
 collision_layer = 0
 collision_mask = 2
@@ -96,8 +110,6 @@ wait_time = 0.2
 
 [node name="IdleTimer" type="Timer" parent="."]
 wait_time = 10.0
-
-[node name="BreakthroughTimer" type="Timer" parent="."]
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("1_7c2bu")
@@ -119,18 +131,24 @@ enemy = NodePath("../..")
 script = ExtResource("6_sfowh")
 enemy = NodePath("../..")
 
-[node name="Breakthrough" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+[node name="Breakthrough" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "marker")]
 script = ExtResource("9_uuykf")
 enemy = NodePath("../..")
+marker = NodePath("../../Marker2D")
 
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("2_l84k6")
 metadata/_edit_lock_ = true
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-target_position = Vector2(51, 0)
 metadata/_edit_lock_ = true
 
+[connection signal="area_shape_entered" from="WallCollision" to="StateMachine/EnemyFollow" method="_on_wall_collision_area_shape_entered"]
+[connection signal="body_entered" from="WallCollision" to="." method="_on_wall_collision_body_entered"]
+[connection signal="body_entered" from="WallCollision" to="StateMachine/EnemyFollow" method="_on_wall_collision_body_entered"]
+[connection signal="body_entered" from="WallCollision" to="StateMachine/Breakthrough" method="_on_wall_collision_body_entered"]
+[connection signal="body_exited" from="WallCollision" to="StateMachine/EnemyFollow" method="_on_wall_collision_body_exited"]
+[connection signal="body_shape_entered" from="WallCollision" to="StateMachine/EnemyFollow" method="_on_wall_collision_body_shape_entered"]
 [connection signal="area_entered" from="Sonar" to="." method="_on_sonar_area_entered"]
 [connection signal="area_entered" from="Sonar" to="StateMachine/EnemyIdle" method="_on_sonar_area_entered"]
 [connection signal="area_entered" from="Sonar" to="StateMachine/MoveToTome" method="_on_sonar_area_entered"]
@@ -142,4 +160,3 @@ metadata/_edit_lock_ = true
 [connection signal="timeout" from="FollowTimer" to="StateMachine/MoveToTome" method="_on_follow_timer_timeout"]
 [connection signal="timeout" from="FollowTimer" to="StateMachine/EnemyFollow" method="_on_target_timer_timeout"]
 [connection signal="timeout" from="IdleTimer" to="StateMachine/EnemyIdle" method="_on_idle_timer_timeout"]
-[connection signal="timeout" from="BreakthroughTimer" to="StateMachine/Breakthrough" method="_on_breakthrough_timer_timeout"]
