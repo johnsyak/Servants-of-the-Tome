@@ -34,8 +34,10 @@ func _on_attack_area_area_entered(area):
 	Transitioned.emit(self, "EnemyAttack")
 
 func _on_wall_collision_body_entered(body):
-	var vel = enemy.velocity.length()
-	if enemy.velocity.length() < 100:
+#	var vel = enemy.velocity.length()
+#	if enemy.velocity.length() < 100:
+#		return
+	if !body is TileMap:
 		return
 	Transitioned.emit(self, "Breakthrough")
 	
