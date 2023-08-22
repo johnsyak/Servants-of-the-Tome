@@ -17,7 +17,7 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-126, -94, 511, -94, 50
 navigation_polygon = SubResource("NavigationPolygon_4u0pd")
 navigation_layers = 2
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="TileMap" type="TileMap" parent="." groups=["tilemap"]]
 tile_set = ExtResource("1_fskhl")
 cell_quadrant_size = 32
 format = 2
@@ -34,10 +34,10 @@ layer_1/tile_data = PackedInt32Array(65547, 2, 0, 131083, 2, 0, 196619, 2, 0, 19
 script = ExtResource("2_wrqbi")
 
 [node name="Player" parent="." instance=ExtResource("3_r8rjm")]
-position = Vector2(211, -46)
+position = Vector2(340, 141)
 
 [node name="DefaultEnemy" parent="." instance=ExtResource("2_l4a6s")]
-position = Vector2(15, 145)
+position = Vector2(220, 144)
 
 [node name="tome" parent="." instance=ExtResource("5_jvcxn")]
 position = Vector2(275, 15)

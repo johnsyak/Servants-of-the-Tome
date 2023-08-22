@@ -37,12 +37,8 @@ func _on_wall_collision_body_entered(body):
 	var vel = enemy.velocity.length()
 	if enemy.velocity.length() < 100:
 		return
-	#Transitioned.emit(self, "Breakthrough")
-
-func _on_wall_collision_body_exited(body):
-	pass # Replace with function body.
+	Transitioned.emit(self, "Breakthrough")
 	
 func _on_target_timer_timeout():
 	enemy.navigation_agent.target_position = enemy.movement_target.position
-
 

@@ -1,0 +1,75 @@
+[gd_scene load_steps=11 format=3 uid="uid://dhxc3cy1utlc4"]
+
+[ext_resource type="Texture2D" uid="uid://c5j4jb0yuywud" path="res://assets/torch_spritesheet.png" id="1_pw387"]
+
+[sub_resource type="Gradient" id="Gradient_4q5wb"]
+offsets = PackedFloat32Array(0, 0.738881, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6c78r"]
+gradient = SubResource("Gradient_4q5wb")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fpwmt"]
+atlas = ExtResource("1_pw387")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0axr"]
+atlas = ExtResource("1_pw387")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tmtgu"]
+atlas = ExtResource("1_pw387")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xx1v5"]
+atlas = ExtResource("1_pw387")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56i6c"]
+atlas = ExtResource("1_pw387")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42tpm"]
+atlas = ExtResource("1_pw387")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_umge6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fpwmt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d0axr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tmtgu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xx1v5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_56i6c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_42tpm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="torches" type="PointLight2D"]
+z_index = 1
+position = Vector2(0, -4)
+scale = Vector2(1, 1.125)
+color = Color(0.701961, 0.309804, 0.105882, 1)
+energy = 4.0
+texture = SubResource("GradientTexture2D_6c78r")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_umge6")
+autoplay = "default"
+frame_progress = 0.414894
