@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var navigation_agent: NavigationAgent2D
 @export var follow_timer: Timer
 @export var attack_timer: Timer
+@export var breakthrough_timer: Timer
 @export var idle_timer: Timer
 @export var rotation_speed = 50
 @export var walk_speed:float = 10.0
@@ -23,7 +24,7 @@ var layer_of_collision = null
 
 var tile_map: TileMap
 
-var colliders : Dictionary = {}
+var colliders : Dictionary
 
 signal enemy_follow
 
@@ -52,14 +53,14 @@ func _physics_process(delta):
 				layer_of_collision = null
 				return
 			
-			collider.erase_cell(1, tile_world_coords)
-			collider.erase_cell(0, tile_world_coords)
-			collider.set_cell(0, tile_world_coords, 2, PLATFORM_TILE)
+			colliders[collider] =  tile_world_coords
+
 		
 func _ready():
 	follow_timer.stop()
 	attack_timer.stop()
 	idle_timer.start()
+	breakthrough_timer.stop()
 
 func _on_sonar_area_entered(area):
 	movement_target = 	area.owner
@@ -68,6 +69,7 @@ func _on_sonar_area_entered(area):
 func _on_wall_collision_body_entered(body):
 	if body is TileMap:
 		tile_map = body
+		
 		
 #		var tile_coords = Vector2i(tile_map.local_to_map(marker.position))
 #		print(tile_coords)
@@ -81,17 +83,3 @@ func _on_wall_collision_body_entered(body):
 #		tile_map.set_cell(1, tile_coords2, 2, Vector2i(0,0))
 
 
-func _on_wall_collision_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):	
-		var tile_rid = get_last_slide_collision().get_collider_rid()
-		var layer_of_collision = PhysicsServer2D.body_get_collision_layer(tile_rid)
-		pass
-#		if layer_of_collision == ITEM_BLOCK_LAYER:
-#			var tile_world_coords = collider.get_coords_for_body_rid(tile_rid)
-#			var tile_source_id = collider.get_cell_source_id(TILE_LAYER, tile_world_coords, false)
-#			if tile_source_id == -1:
-#				layer_of_collision = null
-#				return
-#
-#			collider.erase_cell(1, tile_world_coords)
-#			collider.erase_cell(0, tile_world_coords)
-#			collider.set_cell(TILE_LAYER, tile_world_coords, tile_source_id, PLATFORM_TILE)

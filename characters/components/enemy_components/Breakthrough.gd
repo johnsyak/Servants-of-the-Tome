@@ -6,18 +6,21 @@ signal breakthrough
 @export var enemy: CharacterBody2D
 @export var marker: Marker2D
 
+const PLATFORM_TILE = Vector2i(1, 0)  # TileMap atlas coordinates for platform tile
+
 func enter():
-	pass
-	#enemy.velocity = Vector2.ZERO
+	enemy.velocity = Vector2(0,0)
+	enemy.breakthrough_timer.start()
 	
 func exit():
-	pass
+	enemy.breakthrough_timer.stop()
 
 func update(_delta: float):
 	pass
 
-func physics_update(_delta: float):
-	pass
-
 func _on_breakthrough_timer_timeout():
-	pass # Replace with function body.
+	for collider in enemy.colliders:
+		collider.erase_cell(1, enemy.colliders[collider])
+		collider.erase_cell(0, enemy.colliders[collider])
+		collider.set_cell(0, enemy.colliders[collider], 2, enemy.PLATFORM_TILE)
+		Transitioned.emit(self, "EnemyFollow")
